@@ -35,11 +35,18 @@ Deploy the Kubernetes Job manifest:
 kubectl apply -f etl-job.yaml
 ```
 
-Check the job and logs:
+Monitor the job status and stream the logs while it runs:
+
+```bash
+kubectl get pods -w          # watch the pod status
+kubectl logs -f job/etl-job  # follow the job logs
+```
+
+Exit the log stream with `Ctrl+C`. To check the final job status:
 
 ```bash
 kubectl get jobs
-kubectl logs job/etl-job
+kubectl describe job/etl-job
 ```
 
 The container expects the file at `/data/sales.csv` (mounted from the host). After the job completes, you can unmount:
